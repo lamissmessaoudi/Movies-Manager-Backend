@@ -9,7 +9,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.17.1",
     "mongoose": "^5.12.1",
     "underscore": "^1.12.1"
+  },
+  "devDependencies": {
+    "jshint": "^2.12.0"
   }
 }
