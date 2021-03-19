@@ -1,6 +1,12 @@
 const express = require('express'); //express is a function
 const app = express();
 
+//We're adding a middleware
+app.use(express.json())
+//to parse json objects from tha body of the request 
+//By default this feature is not enabled by express
+
+
 const courses = [
     { id: 1, name: 'course1 ' },
     { id: 2, name: 'course2 ' },
@@ -13,6 +19,23 @@ app.get('/', (req, res) => {
 
 app.get('/api/courses', (req, res) => {
     res.send(courses)
+})
+
+app.post('/api/courses', (req, res) => {
+    //input validation  
+    if (!req.body.name || req.body.name < 3) {
+        res.status(400).send('name is required')
+        return;
+    }
+
+    const course = {
+        id: courses.length + 1,
+        name: req.body.name // we can read it thnx to the middleware
+    }
+    courses.push(course);
+    //convention: when we add a new object to the server we should return 
+    //that obj into the body of the response since the client may need its id 
+    res.send(course);
 })
 
 app.get('/api/courses/:id', (req, res) => {
