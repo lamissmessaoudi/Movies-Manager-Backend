@@ -14,6 +14,15 @@ const courses = [
     { id: 3, name: 'course3 ' }
 ]
 
+function validateCourse(course) {
+    const schema = {
+        name: Joi.string().min(3).required()
+    }
+
+    return Joi.validate(course, schema)
+
+}
+
 app.get('/', (req, res) => {
     res.send('hello')
 })
@@ -26,10 +35,9 @@ app.post('/api/courses', (req, res) => {
 
     //input validation using joi 
     const { error } = validateCourse(req.body);
-    if (error) {
-        res.status(400).send(error.details[0].message)
-        return;
-    }
+    if (error)
+        return res.status(400).send(error.details[0].message)
+
 
     const course = {
         id: courses.length + 1,
@@ -43,17 +51,12 @@ app.post('/api/courses', (req, res) => {
 
 app.put('/api/courses/:id', (req, res) => {
     //look up the course 
-
     const course = courses.find(c => c.id === parseInt(req.params.id))
-    if (!course) res.status(404).send('NOT FOUND ')//404
+    if (!course) return res.status(404).send('NOT FOUND ')//404
 
     //input validation using joi 
     const { error } = validateCourse(req.body);
-    if (error) {
-        res.status(400).send(error.details[0].message)
-        return;
-    }
-
+    if (error) return res.status(400).send(error.details[0].message)
 
     //update couse
     course.name = req.body.name
@@ -61,19 +64,27 @@ app.put('/api/courses/:id', (req, res) => {
     res.send(course);
 })
 
-function validateCourse(course) {
-    const schema = {
-        name: Joi.string().min(3).required()
-    }
+app.get('/api/courses/:id', (req, res) => {
+    const course = courses.find(c => c.id === parseInt(req.params.id))
+    if (!course) return res.status(404).send('NOT FOUND ')//404
 
-    return Joi.validate(course, schema)
-
-}
-
+    res.send(course)
+})
 
 app.get('/api/courses/:id', (req, res) => {
     const course = courses.find(c => c.id === parseInt(req.params.id))
-    if (!course) res.status(404).send('NOT FOUND ')//404
+    if (!course) return res.status(404).send('NOT FOUND ')//404
+
+    res.send(course);
+})
+
+app.delete('/api/courses/:id', (req, res) => {
+    const course = courses.find(c => c.id === parseInt(req.params.id))
+    if (!course) return res.status(404).send('NOT FOUND ')//404
+
+    //courses.filter(c => { if (c !== course) return c; })
+    const index = courses.indexOf(course);
+    courses.splice(index, 1);
     res.send(course)
 })
 
