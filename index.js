@@ -1,3 +1,4 @@
+const Joi = require('joi'); //  Joi is a class
 const express = require('express'); //express is a function
 const app = express();
 
@@ -22,9 +23,18 @@ app.get('/api/courses', (req, res) => {
 })
 
 app.post('/api/courses', (req, res) => {
-    //input validation  
-    if (!req.body.name || req.body.name < 3) {
-        res.status(400).send('name is required')
+
+    //input validation using joi 
+    const schema = {
+        name: Joi.string().min(3).required()
+    }
+
+    const result = Joi.validate(req.body, schema)
+    console.log(result);//result has 2 props: error and value 
+
+
+    if (result.error) {
+        res.status(400).send(result.error.details[0].message)
         return;
     }
 
