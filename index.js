@@ -1,6 +1,25 @@
+const config = require('config');
+const morgan = require('morgan');
 const Joi = require('joi'); //  Joi is a class
 const express = require('express'); //express is a function
+
 const app = express();
+app.use(express.json());
+
+if (app.get("env") === "development") {
+    app.use(morgan('tiny'));//to log requests 
+    console.log('Morgan enabled only in dev envt')
+}
+
+
+
+console.log('process.env.NODE_ENV' + process.env.NODE_ENV)
+console.log('app.get("env")' + app.get('env'))
+console.log('config.get("name")' + config.get('name'))
+console.log('config.get("mail.host")' + config.get('mail.host'))
+//to set the paswword : $set app-pwd=1234 in cmd
+console.log('config.get("mail.password")' + config.get('mail.password'))
+
 
 //We're adding a middleware
 app.use(express.json())

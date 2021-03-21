@@ -1,0 +1,6 @@
+{
+    "name" : "Movie Manager App --dev ", 
+    "mail" : {
+        "host" : "dev-mail-server"
+    }
+}
