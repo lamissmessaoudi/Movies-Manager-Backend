@@ -10,11 +10,13 @@
   "license": "ISC",
   "dependencies": {
     "config": "^3.3.6",
+    "debug": "^4.3.1",
     "express": "^4.17.1",
     "helmet": "^4.4.1",
     "joi": "^13.1.0",
     "mongoose": "^5.12.1",
     "morgan": "^1.10.0",
+    "pug": "^3.0.2",
     "underscore": "^1.12.1"
   },
   "devDependencies": {

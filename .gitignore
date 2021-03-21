@@ -1,2 +1,5 @@
 node_modules/
+views/
+routes/courses.js
+routes/home.js
 app.js
