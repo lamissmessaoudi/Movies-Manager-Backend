@@ -4,7 +4,11 @@ const helmet = require('helmet');
 const Joi = require('joi'); //  Joi is a class
 const express = require('express'); //express is a function
 const genres = require('./routes/genres');
+const mongoose = require('mongoose')
 
+mongoose.connect('mongodb://localhost/moviesDB')
+    .then(() => console.log('coonected mongo'))
+    .catch(err => console.log(err))
 
 const app = express();
 app.use(express.json());
