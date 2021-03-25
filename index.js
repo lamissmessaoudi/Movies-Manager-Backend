@@ -4,6 +4,8 @@ const helmet = require('helmet');
 const Joi = require('joi'); //  Joi is a class
 const express = require('express'); //express is a function
 const genres = require('./routes/genres');
+const costumers = require('./routes/costumers');
+
 const mongoose = require('mongoose')
 
 mongoose.connect('mongodb://localhost/moviesDB')
@@ -15,6 +17,7 @@ app.use(express.json());
 app.use(helmet());//to log requests 
 
 app.use('/api/genres', genres)
+app.use('/api/costumers', costumers)
 
 if (app.get("env") === "development") {
     app.use(morgan('tiny'));//to log requests 
