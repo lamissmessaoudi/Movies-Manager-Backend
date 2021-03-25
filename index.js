@@ -9,6 +9,8 @@ const costumers = require('./routes/costumers');
 const movies = require('./routes/movies');
 const rentals = require('./routes/rentals');
 const users = require('./routes/users');
+const auth = require('./routes/auth');
+
 
 
 const mongoose = require('mongoose')
@@ -26,6 +28,7 @@ app.use('/api/costumers', costumers)
 app.use('/api/movies', movies)
 app.use('/api/rentals', rentals)
 app.use('/api/users', users)
+app.use('/api/auth', auth)
 
 if (app.get("env") === "development") {
     app.use(morgan('tiny'));//to log requests 
