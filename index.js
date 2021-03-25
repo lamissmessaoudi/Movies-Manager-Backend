@@ -2,12 +2,13 @@ const config = require('config');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const Joi = require('joi'); //  Joi is a class
+Joi.objectId = require('joi-objectid')(Joi);  //  Joi is a class
 const express = require('express'); //express is a function
 const genres = require('./routes/genres');
 const costumers = require('./routes/costumers');
 const movies = require('./routes/movies');
 const rentals = require('./routes/rentals');
-Joi.objectId = require('joi-objectid')(Joi);  //  Joi is a class
+const users = require('./routes/users');
 
 
 const mongoose = require('mongoose')
@@ -24,6 +25,7 @@ app.use('/api/genres', genres)
 app.use('/api/costumers', costumers)
 app.use('/api/movies', movies)
 app.use('/api/rentals', rentals)
+app.use('/api/users', users)
 
 if (app.get("env") === "development") {
     app.use(morgan('tiny'));//to log requests 
