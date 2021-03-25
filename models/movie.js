@@ -14,8 +14,8 @@ const Movie = mongoose.model('Movie', MovieSchema)
 function validateMovie(movie) {
     const schema = { //joi schema is what the client sends to us (api input)
         title: Joi.string().min(5).max(255).required(),
-        numberInStock: Joi.Number().min(0).required(),
-        dailyRentalRate: Joi.Number().min(0).required(),
+        numberInStock: Joi.number().min(0).required(),
+        dailyRentalRate: Joi.number().min(0).required(),
         genreId: Joi.string().required(),
     }
 

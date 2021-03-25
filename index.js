@@ -6,6 +6,7 @@ const express = require('express'); //express is a function
 const genres = require('./routes/genres');
 const costumers = require('./routes/costumers');
 const movies = require('./routes/movies');
+const rentals = require('./routes/rentals');
 
 const mongoose = require('mongoose')
 
@@ -20,6 +21,7 @@ app.use(helmet());//to log requests
 app.use('/api/genres', genres)
 app.use('/api/costumers', costumers)
 app.use('/api/movies', movies)
+app.use('/api/rentals', rentals)
 
 if (app.get("env") === "development") {
     app.use(morgan('tiny'));//to log requests 
