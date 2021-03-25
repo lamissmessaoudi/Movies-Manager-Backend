@@ -17,10 +17,10 @@ router.post('/', async (req, res) => {
         return res.status(400).send(error.details[0].message)
 
 
-    let genre = new Genre({
+    const genre = new Genre({
         name: req.body.name // we can read it thnx to the middleware
     })
-    genre = await genre.save();
+    await genre.save();
     //convention: when we add a new object to the server we should return 
     //that obj into the body of the response since the client may need its id 
     res.send(genre);

@@ -7,6 +7,8 @@ const genres = require('./routes/genres');
 const costumers = require('./routes/costumers');
 const movies = require('./routes/movies');
 const rentals = require('./routes/rentals');
+Joi.objectId = require('joi-objectid')(Joi);  //  Joi is a class
+
 
 const mongoose = require('mongoose')
 

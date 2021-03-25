@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
-const Joi = require('joi'); 7//  Joi is a class
-const { genreSchema } = require('./genre')
+const Joi = require('joi');
 
 const RentalSchema = mongoose.Schema({ //mongoose schema is the representation of the model in BD
 
@@ -29,8 +28,8 @@ const Rental = mongoose.model('Rental', RentalSchema)
 
 function validateRental(rental) {
     const schema = { //joi schema is what the client sends to us (api input)
-        costumerId: Joi.string().required(),
-        movieId: Joi.string().required(),
+        costumerId: Joi.objectId().required(),
+        movieId: Joi.objectId().required(),
     }
 
     return Joi.validate(rental, schema)

@@ -15,12 +15,12 @@ router.post('/', async (req, res) => {
         return res.status(400).send(error.details[0].message)
 
 
-    let costmer = new Costumer({
+    const costmer = new Costumer({
         name: req.body.name,
         phone: req.body.phone,
         isGold: req.body.isGold
     })
-    costmer = await costmer.save();
+    await costmer.save();
     res.send(costmer);
 })
 
