@@ -6,7 +6,12 @@ const bcrypt = require('bcrypt')
 const { validateuser, User } = require('../models/user')
 const config = require('config');
 const jwt = require('jsonwebtoken')
+const auth = require('../middleware/auth')
 
+router.get('/me', auth, async (req, res) => {
+    const user = await User.findById(req.user._id).select('-password')
+    res.send(user)
+})
 
 router.post('/', async (req, res) => {
 
@@ -28,6 +33,6 @@ router.post('/', async (req, res) => {
     //returning the token as a header
     res.header('x-auth-token', token).send(_.pick(user, ['_id', 'name', 'email']))
 })
-
+//payload are the data we store insie the token 
 
 module.exports = router;
