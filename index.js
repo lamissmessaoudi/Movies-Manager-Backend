@@ -12,6 +12,10 @@ const users = require('./routes/users');
 const auth = require('./routes/auth');
 
 
+if (!config.get("jwtPrivateKey")) {
+    console.log('FATAL ERROR : jwtPrivateKey is not defined ')
+    process.exit(1) //0 success
+}
 
 const mongoose = require('mongoose')
 

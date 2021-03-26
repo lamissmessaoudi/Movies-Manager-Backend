@@ -6,6 +6,7 @@ const { Costumer } = require('../models/customer');
 const { Genre } = require('../models/genre');
 const { validateMovie, Movie } = require('../models/movie');
 const { Rental, validateRental } = require('../models/rental');
+const auth = require('../middleware/auth')
 
 Fawn.init(mongoose)
 
@@ -14,7 +15,7 @@ router.get('/', async (req, res) => {
     res.send(rentals)
 })
 
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
     const { error } = validateRental(req.body);
     if (error)
         return res.status(400).send(error.details[0].message)
@@ -23,7 +24,7 @@ router.post('/', async (req, res) => {
     if (!costumer) return res.status(400).send('Invalid costumer')
 
     const movie = await Movie.findById(req.body.movieId)
-    if (!movie) return res.status(400).send('Invalid movie')
+    if (!movie) return res.status(400).send(' movie')
 
     if (movie.numberInStock === 0) return res.status(400).send('Movie not available')
 

@@ -1,3 +1,5 @@
+const config = require('config');
+const jwt = require('jsonwebtoken')
 const express = require('express');
 const router = express.Router();
 const _ = require('lodash')
@@ -5,7 +7,6 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const { User } = require('../models/user')
 const Joi = require('joi'); //  Joi is a class
-
 
 function validateAuth(req) {
     const schema = {
@@ -28,8 +29,11 @@ router.post('/', async (req, res) => {
     const validPwd = await bcrypt.compare(req.body.password, user.password)
     if (!validPwd)
         return res.status(400).send("Invalid email or password")
-    res.send(true)
+
+    const token = user.generateAuthToken();
+
+    res.send(token)
 })
 
-
+//private key to create digital signature
 module.exports = router;

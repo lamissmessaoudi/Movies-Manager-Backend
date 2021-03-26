@@ -1,5 +1,3 @@
 {
-    "mail" : {
-        "password" : "app-pwd"
-    }
+    "jwtPrivateKey":"movies_jwtPrivateKey"
 }

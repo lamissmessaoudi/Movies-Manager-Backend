@@ -1,3 +1,4 @@
+const auth = require('../middleware/auth')
 const express = require('express');
 const router = express.Router();
 
@@ -9,7 +10,9 @@ router.get('/', async (req, res) => {
     res.send(genres)
 })
 
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
+
+
 
     //input validation using joi 
     const { error } = validategenre(req.body);

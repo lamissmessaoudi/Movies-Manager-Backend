@@ -4,7 +4,8 @@ const _ = require('lodash')
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const { validateuser, User } = require('../models/user')
-
+const config = require('config');
+const jwt = require('jsonwebtoken')
 
 
 router.post('/', async (req, res) => {
@@ -23,8 +24,9 @@ router.post('/', async (req, res) => {
     user.password = await bcrypt.hash(user.password, salt)
 
     await user.save();
-
-    res.send(_.pick(user, ['_id', 'name', 'email']))
+    const token = user.generateAuthToken();
+    //returning the token as a header
+    res.header('x-auth-token', token).send(_.pick(user, ['_id', 'name', 'email']))
 })
 
 
