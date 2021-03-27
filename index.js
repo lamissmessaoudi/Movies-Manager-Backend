@@ -15,9 +15,15 @@ const rentals = require('./routes/rentals');
 const users = require('./routes/users');
 const auth = require('./routes/auth');
 
+//caughting unhandleded exceptions:
+process.on("uncaughtException", (ex) => {
+    console.log("WE GOT AN uncaughtException ")
+    winston.error(ex.message, ex)
+})
+
+////winston and error.js only catches express errors /request processing pipeline
 winston.add(winston.transports.File, { filename: 'logfile.log' })
 //creates a new file "logfile" to save the logs in it 
-
 winston.add(winston.transports.MongoDB, {
     db: 'mongodb://localhost/moviesDB',
     level: 'error'//only error level will be logged
@@ -25,7 +31,8 @@ winston.add(winston.transports.MongoDB, {
 })
 //creates a new collection "log" to save the logs in it in MongoDB
 
-
+//error thrown outside the context of processsing a request , Express
+throw new Error('Something failed during startup ')
 
 if (!config.get("jwtPrivateKey")) {
     console.log('FATAL ERROR : jwtPrivateKey is not defined ')
