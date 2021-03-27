@@ -4,6 +4,7 @@ const config = require('config');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const winston = require('winston');//default logger
+require('winston-mongodb');
 const Joi = require('joi'); //  Joi is a class
 Joi.objectId = require('joi-objectid')(Joi);  //  Joi is a class
 const express = require('express'); //express is a function
@@ -13,6 +14,17 @@ const movies = require('./routes/movies');
 const rentals = require('./routes/rentals');
 const users = require('./routes/users');
 const auth = require('./routes/auth');
+
+winston.add(winston.transports.File, { filename: 'logfile.log' })
+//creates a new file "logfile" to save the logs in it 
+
+winston.add(winston.transports.MongoDB, {
+    db: 'mongodb://localhost/moviesDB',
+    level: 'error'//only error level will be logged
+    //level:'info' ==> logged levels are : error , warn , info
+})
+//creates a new collection "log" to save the logs in it in MongoDB
+
 
 
 if (!config.get("jwtPrivateKey")) {
