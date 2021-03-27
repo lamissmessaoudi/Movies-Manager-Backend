@@ -3,6 +3,7 @@ const error = require('./middleware/error')
 const config = require('config');
 const morgan = require('morgan');
 const helmet = require('helmet');
+const winston = require('winston');//default logger
 const Joi = require('joi'); //  Joi is a class
 Joi.objectId = require('joi-objectid')(Joi);  //  Joi is a class
 const express = require('express'); //express is a function
