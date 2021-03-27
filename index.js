@@ -1,3 +1,5 @@
+require('express-async-errors')
+const error = require('./middleware/error')
 const config = require('config');
 const morgan = require('morgan');
 const helmet = require('helmet');
@@ -33,6 +35,12 @@ app.use('/api/movies', movies)
 app.use('/api/rentals', rentals)
 app.use('/api/users', users)
 app.use('/api/auth', auth)
+
+
+
+app.use(error)
+
+
 
 if (app.get("env") === "development") {
     app.use(morgan('tiny'));//to log requests 

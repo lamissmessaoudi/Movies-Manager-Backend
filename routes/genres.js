@@ -1,3 +1,4 @@
+//const asyncMiddleware = require('../middleware/async')
 const auth = require('../middleware/auth')
 const admin = require('../middleware/admin')
 const express = require('express');
@@ -6,10 +7,31 @@ const router = express.Router();
 const mongoose = require('mongoose')
 const { validategenre, Genre } = require('../models/genre')
 
+
 router.get('/', async (req, res) => {
     const genres = await Genre.find().sort('name')
     res.send(genres)
-})
+});
+
+/*
+async function asyncMiddleware(handler) {
+    try {
+        await handler();
+    }
+    catch (err) {
+        next(err)
+    }
+}
+
+
+router.get('/', asyncMiddleware(async (req, res, next) => {
+    const genres = await Genre.find().sort('name')
+    res.send(genres)
+}));
+
+//This is wrong because asyncMiddleware handler doesn't have args 
+//in this case we're calling asyncMiddleware and not passing a reference as we should
+*/
 
 router.post('/', auth, async (req, res) => {
     //input validation using joi 
